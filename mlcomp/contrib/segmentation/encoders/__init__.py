@@ -7,6 +7,8 @@ from .vgg import vgg_encoders
 from .senet import senet_encoders
 from .densenet import densenet_encoders
 from .inceptionresnetv2 import inception_encoders
+from .efficientnet import efficient_net_encoders
+
 
 from ._preprocessing import preprocess_input
 
@@ -17,6 +19,7 @@ encoders.update(vgg_encoders)
 encoders.update(senet_encoders)
 encoders.update(densenet_encoders)
 encoders.update(inception_encoders)
+encoders.update(efficient_net_encoders)
 
 
 def get_encoder(name, encoder_weights=None):
@@ -39,9 +42,8 @@ def get_preprocessing_params(encoder_name, pretrained='imagenet'):
     settings = encoders[encoder_name]['pretrained_settings']
 
     if pretrained not in settings.keys():
-        raise ValueError(
-            'Avaliable pretrained options {}'.format(settings.keys()))
-
+        raise ValueError('Avaliable pretrained options {}'.format(settings.keys()))
+    
     formatted_settings = {}
     formatted_settings['input_space'] = settings[pretrained].get('input_space')
     formatted_settings['input_range'] = settings[pretrained].get('input_range')
